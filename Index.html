@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto de Vida - Branta INTL High School</title>
+  <style>
+    :root { --primary: #003366; --accent: #cc0000; --bg: #eef2f5; --text: #333; --white: #fff; }
+    body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+    
+    header { background-color: var(--primary); color: var(--white); padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-bottom: 5px solid var(--accent); }
+    header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+    header p { margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9; }
+
+    main { flex: 1; max-width: 800px; margin: 30px auto; padding: 0 20px; width: 100%; box-sizing: border-box; }
+
+    .card { background: var(--white); padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid var(--primary); }
+    
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; }
+    .fixed-info { background: #f0f4f8; padding: 12px; border-radius: 4px; color: #555; font-weight: 500; margin-bottom: 20px; border: 1px solid #dde; }
+    
+    select, textarea, input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1rem; box-sizing: border-box; }
+    select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+    textarea { height: 120px; resize: vertical; }
+
+    button { background-color: var(--primary); color: var(--white); border: none; padding: 15px; font-size: 1rem; border-radius: 4px; cursor: pointer; transition: 0.2s; width: 100%; font-weight: bold; text-transform: uppercase; }
+    button:hover { background-color: #002244; }
+    
+    button.secondary { background-color: var(--white); color: var(--primary); border: 2px solid var(--primary); margin-top: 10px; }
+    button.secondary:hover { background-color: #f0f4f8; }
+    
+    button.cancel { background-color: #777; margin-top: 10px; display: none; } /* Botão cancelar edição */
+
+    /* Lista e Controles */
+    ul { list-style: none; padding: 0; }
+    ul li { 
+        background: #fafafa; 
+        border-bottom: 1px solid #eee; 
+        padding: 15px; 
+        margin-bottom: 10px; 
+        position: relative; 
+        border-radius: 4px; 
+        display: flex; 
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .print-check { width: 20px; height: 20px; margin-top: 5px; cursor: pointer; accent-color: var(--primary); }
+    .content-area { flex: 1; }
+    ul li strong { color: var(--primary); display: block; margin-bottom: 5px; font-size: 0.95rem; }
+    ul li span.meta { font-size: 0.8rem; color: #777; display: block; margin-bottom: 8px; }
+    
+    /* Botões de Ação na Lista */
+    .action-group { display: flex; gap: 5px; margin-left: 10px; }
+    .btn-icon { background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 5px; line-height: 1; transition: color 0.2s; }
+    .btn-edit { color: #003366; }
+    .btn-edit:hover { color: #0055aa; transform: scale(1.1); }
+    .btn-delete { color: #999; }
+    .btn-delete:hover { color: var(--accent); transform: scale(1.1); }
+
+    .selection-controls { display: flex; gap: 10px; margin-bottom: 10px; justify-content: flex-end; }
+    .btn-small { width: auto; padding: 5px 10px; font-size: 0.8rem; background: #eee; color: #333; border: 1px solid #ccc; }
+
+    footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #888; border-top: 1px solid #ddd; margin-top: auto; }
+    
+    #pdfArea { display: none; background: white; padding: 40px; font-family: 'Times New Roman', serif; }
+    @media print { body * { visibility: hidden; } #pdfArea, #pdfArea * { visibility: visible; display: block; } #pdfArea { position: absolute; top: 0; left: 0; width: 100%; box-sizing: border-box;} }
+  </style>
+</head>
+<body>
+
+<header>
+    <h1>Projeto de Vida</h1>
+    <p>Branta INTL School - High School</p>
+</header>
+
+<main>
+  <div class="card">
+    <label>Responsável pelo Registro</label>
+    <div class="fixed-info">PROFª FERNANDA PARO</div>
+
+    <label>Aluno(a)</label>
+    <select id="aluno" onchange="mostrarHistorico()">
+      <option value="">-- Selecione o Aluno --</option>
+      <optgroup label="High I A">
+        <option>ANA JÚLIA ALVES CASTELLI</option><option>ANDRE KRAUSE LUI</option><option>ARTUR GAMBARONI ALVES</option><option>BEATRIZ GARCIA PEREIRA GOMES</option><option>CATARINA RIBEIRO TATERKA</option><option>DAVI DIAS MAROTO</option><option>DAVI DOSTAL EMSENHUBER</option><option>ELIZABETH GRACE RAMIREZ NAGEL</option><option>ENRICO SILVA VALEZINI AMADEU</option><option>FÁBIO BARNABÉ VICENTIN GUIDIO</option><option>GABRIELA SASAKI</option><option>GUSTAVO CAMASMIE COELHO</option><option>HEITOR KAUÊ DE OLIVEIRA LIMA</option><option>JOÃO PEDRO MONTEIRO MUNIZ DE OLIVEIRA</option><option>JOÃO PEDRO RANGEL CORREA DE FARIA</option><option>LARA CARVALHO CAMARGO DE ARAUJO</option><option>LAURA PEIXOTO SAMPAIO DA SILVA</option><option>LEONARDO VENDRAMI CRISPIM</option><option>LUCA SPINA ZAGO</option><option>NICOLAS RODRIGUES CARRO</option><option>OTÁVIO BARNABÉ VICENTIN GUIDIO</option><option>PEDRO BARNABÉ VICENTIN GUIDIO</option><option>PEDRO BORGHI BENTO DOS SANTOS</option><option>PEDRO LUI BORGES DO NASCIMENTO</option><option>RAFAEL CAMASMIE COELHO</option><option>ROBERTO EIDI HIROTA RODRIGUES</option><option>TARIK LEIS MEZRED</option><option>VICTOR ARRIGONI WERBROUCK</option>
+      </optgroup>
+      <optgroup label="High II A">
+        <option>ANA CLARA DE MOURA FULAZ</option><option>ANA CLARA RODRIGUES LARA</option><option>AUGUSTO CÉSAR PATRICIO DE AZAMBUJA NETO</option><option>BEATRIZ REZENDE RABNER</option><option>BRUNO LOURENSATO BRAGAGNOLLO</option><option>CAROLINA AMORIM DOMINGUES DA SILVA</option><option>CATARINA VENDRAMI SCHINCARIOL</option><option>FREDERIK VOLKMANN DE MEIRA LEITE</option><option>GABRIEL VIANA FLORENCIO</option><option>GABRIELA DE ALMEIDA PRADO COSTA</option><option>LUCAS OLIVEIRA MANTOVANI DOS SANTOS</option><option>MANUELA MOURA PAVANI</option><option>MATEUS DE OLIVEIRA MIOTTO</option><option>OLÍVIA CANDIDO VIKANIS</option><option>RAUL MOTA LEITE</option><option>SOFIA NOGUEIRA GALUTTI</option>
+      </optgroup>
+      <optgroup label="High III A">
+        <option>ANA LUIZA BACCHI</option><option>ARTHUR CHIARI DA SILVA</option><option>DANILO REIS PEREIRA</option><option>EDUARDO SHIOZAKI BARROS</option><option>ENZO SPINA</option><option>GABRIELA AMORIM DOMINGUES DA SILVA</option><option>GIOVANNA CAMASMIE COELHO</option><option>ISADORA LAÍS SILVA DE AMORIM</option><option>JOÃO HENRIQUE DORETTO PIANUCCI</option><option>LETICIA MARIA ANCA SANTOS</option><option>LORENZO CHRISTOFOLETTI ASSUGENI</option><option>LUCAS LOPES PIVATO PEREIRA</option><option>LUCCA GROFF BRUGIONI</option><option>MARIA ANTONIA OLIVEIRA DE SOUSA</option><option>MARIA FERNANDA PEREIRA DE ALMEIDA LEITE</option><option>NICOLAS LEAL CISESKI</option><option>NICOLAS SAHELI</option><option>RAFAEL DE ARRUDA SCHINCARIOL</option><option>SOFIA CARDERARO</option><option>VICTORIA DE GOES GALLANI</option><option>VITOR AUGUSTO CAMPOS MENDES DE OLIVEIRA SIT</option>
+      </optgroup>
+    </select>
+
+    <label>Conversa</label>
+    <textarea id="textoOcorrencia" placeholder="Descreva os detalhes da conversa..."></textarea>
+
+    <button id="btnSalvar" onclick="salvar()">Salvar Registro</button>
+    <button id="btnCancelar" class="cancel" onclick="cancelarEdicao()">Cancelar Edição</button>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom:15px;">
+        <h3 style="color: var(--primary); margin:0;">Histórico do Aluno</h3>
+        <span style="font-size:0.8rem; color:#666;">Selecione para imprimir</span>
+    </div>
+    
+    <div class="selection-controls" id="controls" style="display:none;">
+        <button class="btn-small" onclick="toggleChecks(true)">Marcar Todos</button>
+        <button class="btn-small" onclick="toggleChecks(false)">Desmarcar</button>
+    </div>
+
+    <ul id="listaHistorico">
+        <li style="text-align:center; color:#999; padding:20px;">Selecione um aluno para visualizar.</li>
+    </ul>
+    
+    <button class="secondary" onclick="imprimirSelecionados()">Gerar Relatório PDF (Selecionados)</button>
+  </div>
+
+  <div id="pdfArea"></div>
+</main>
+
+<footer>
+    <i>Created By - TE Nicolau</i>
+</footer>
+
+<script>
+  let editingIndex = -1; // Variável global para controlar a edição
+
+  function salvar() {
+    const aluno = document.getElementById("aluno").value;
+    const texto = document.getElementById("textoOcorrencia").value;
+    const responsavel = "Professora Fernanda Paro"; 
+    
+    if (!aluno || !texto) { alert("Preencha o aluno e a descrição da conversa."); return; }
+
+    const dados = JSON.parse(localStorage.getItem("projetoVidaHigh")) || {};
+    if (!dados[aluno]) dados[aluno] = [];
+
+    if (editingIndex > -1) {
+        // MODO EDIÇÃO: Atualiza o registro existente
+        dados[aluno][editingIndex].texto = texto;
+        dados[aluno][editingIndex].responsavel = responsavel;
+        
+        editingIndex = -1; // Reseta modo edição
+        document.getElementById("btnSalvar").innerText = "Salvar Registro";
+        document.getElementById("btnCancelar").style.display = "none";
+        alert("Registro atualizado com sucesso.");
+    } else {
+        // MODO NOVO REGISTRO
+        const now = new Date();
+        const dataHora = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+        dados[aluno].push({ data: dataHora, responsavel, texto });
+        alert("Conversa registrada com sucesso.");
+    }
+    
+    localStorage.setItem("projetoVidaHigh", JSON.stringify(dados));
+    document.getElementById("textoOcorrencia").value = "";
+    mostrarHistorico();
+  }
+
+  function editar(index) {
+    const aluno = document.getElementById("aluno").value;
+    const dados = JSON.parse(localStorage.getItem("projetoVidaHigh")) || {};
+    const item = dados[aluno][index];
+
+    if(item) {
+        document.getElementById("textoOcorrencia").value = item.texto;
+        editingIndex = index;
+        
+        // Ajusta botões
+        document.getElementById("btnSalvar").innerText = "Atualizar Registro";
+        document.getElementById("btnCancelar").style.display = "block";
+        
+        // Rola para o topo para facilitar a edição
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function cancelarEdicao() {
+      editingIndex = -1;
+      document.getElementById("textoOcorrencia").value = "";
+      document.getElementById("btnSalvar").innerText = "Salvar Registro";
+      document.getElementById("btnCancelar").style.display = "none";
+  }
+
+  function mostrarHistorico() {
+    // Se mudar de aluno durante edição, cancela edição
+    if(editingIndex > -1) cancelarEdicao();
+
+    const aluno = document.getElementById("aluno").value;
+    const lista = document.getElementById("listaHistorico");
+    const controls = document.getElementById("controls");
+    
+    lista.innerHTML = "";
+    const dados = JSON.parse(localStorage.getItem("projetoVidaHigh")) || {};
+    
+    if (dados[aluno] && dados[aluno].length > 0) {
+      controls.style.display = "flex";
+      
+      dados[aluno].forEach((item, index) => {
+        const li = document.createElement("li");
+        const autor = item.responsavel ? item.responsavel : "Fernanda Paro";
+        
+        li.innerHTML = `
+            <input type="checkbox" class="print-check" value="${index}" checked>
+            <div class="content-area">
+                <span class="meta">${item.data} - Registrado por: ${autor}</span>
+                <p style="margin: 0; color: #333;">${item.texto}</p>
+            </div>
+            <div class="action-group">
+                <button class="btn-icon btn-edit" onclick="editar(${index})" title="Editar">✎</button>
+                <button class="btn-icon btn-delete" onclick="apagar(${index})" title="Excluir">×</button>
+            </div>
+        `;
+        lista.appendChild(li);
+      });
+    } else {
+        controls.style.display = "none";
+        lista.innerHTML = '<li style="text-align:center; color:#999; padding:20px;">Nenhum registro encontrado para este aluno.</li>';
+    }
+  }
+
+  function toggleChecks(status) {
+      const checkboxes = document.querySelectorAll('.print-check');
+      checkboxes.forEach(cb => cb.checked = status);
+  }
+
+  function apagar(index) {
+    if(confirm("Confirmar exclusão?")) {
+        const aluno = document.getElementById("aluno").value;
+        const dados = JSON.parse(localStorage.getItem("projetoVidaHigh"));
+        dados[aluno].splice(index, 1);
+        localStorage.setItem("projetoVidaHigh", JSON.stringify(dados));
+        mostrarHistorico();
+    }
+  }
+
+  function imprimirSelecionados() {
+    const aluno = document.getElementById("aluno").value;
+    if(!aluno) { alert("Selecione um aluno."); return; }
+    
+    const checkboxes = document.querySelectorAll('.print-check:checked');
+    if(checkboxes.length === 0) {
+        alert("Por favor, selecione pelo menos uma conversa para gerar o PDF.");
+        return;
+    }
+
+    const dados = JSON.parse(localStorage.getItem("projetoVidaHigh")) || {};
+    const todosRegistros = dados[aluno] || [];
+    const indicesSelecionados = Array.from(checkboxes).map(cb => parseInt(cb.value));
+    const listaParaImprimir = indicesSelecionados.map(i => todosRegistros[i]);
+
+    const area = document.getElementById("pdfArea");
+    
+    let html = `<div style="text-align:center; border-bottom: 2px solid #003366; margin-bottom: 20px; padding-bottom:10px;">
+                    <h2 style="margin:0; color:#003366;">BRANTA INTL SCHOOL - HIGH SCHOOL</h2>
+                    <p style="margin:0; font-size:12px;">Relatório de Projeto de Vida</p>
+                </div>`;
+                
+    html += `<h3 style="color:#cc0000;">Aluno(a): ${aluno}</h3>`;
+    
+    html += listaParaImprimir.map(i => {
+             const autor = i.responsavel ? i.responsavel : "Fernanda Paro";
+             return `<div style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                <p style="font-weight:bold; color:#003366; margin-bottom:5px; font-size:14px;">${i.data} | Resp: ${autor}</p>
+                <p style="margin-top:0; text-align:justify; font-size:14px;">${i.texto}</p>
+            </div>`;
+    }).join("");
+
+    html += `<div style="margin-top: 80px; text-align: center; page-break-inside: avoid;">
+                <p style="margin-bottom: 5px;">__________________________________________________________</p>
+                <p style="margin:0;"><strong>Professora Fernanda Paro</strong></p>
+                <p style="margin:0; font-size: 12px;">Projeto de Vida - High School</p>
+                <p style="margin-top:20px; font-size: 10px; color: #555;">Documento gerado em: ${new Date().toLocaleString('pt-BR')}</p>
+             </div>`;
+
+    area.innerHTML = html;
+    window.print();
+  }
+</script>
+</body>
+</html>
